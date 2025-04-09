@@ -1,0 +1,56 @@
+type: custom:layout-card
+layout_type: custom:grid-layout
+layout:
+  # Фиксируем минимальный размер колонок, чтобы кнопки не сжимались
+  grid-template-columns: repeat(4, minmax(100px, 1fr))  # Минимум 100px на кнопку
+  grid-auto-rows: minmax(100px, 1fr)  # Сохраняем квадратную форму
+  grid-gap: 12px  # Отступы между кнопками
+  mediaquery:
+    "(max-width: 600px)":
+      grid-template-columns: repeat(2, minmax(80px, 1fr))  # На мобильных — 2 колонки
+cards:
+  - type: custom:button-card
+    entity: switch.on_off_switch
+    name: Свет в спальне
+    icon: mdi:power
+    show_name: true
+    tap_action:
+      action: toggle
+    styles:
+      card:
+        - width: 100%
+        - height: 100%
+        - aspect-ratio: 1 / 1  # Фиксируем квадрат
+        - min-width: 100px  !important  # Запрещаем сжатие
+        - min-height: 100px  !important
+        - display: flex
+        - flex-direction: column
+        - justify-content: center
+        - align-items: center
+        - padding: 8px
+        - border-radius: 12px
+        - background-color: |
+            [[[ return entity.state === 'on'
+              ? 'rgba(255, 58, 45, 0.15)'
+              : 'rgba(0, 0, 0, 0.05)' ]]]
+      icon:
+        - width: 32px  # Оптимальный размер иконки
+        - height: 32px
+        - margin-bottom: 4px
+        - color: |
+            [[[ return entity.state === 'on'
+              ? 'rgba(255, 58, 45, 0.8)'
+              : 'rgba(150, 150, 150, 0.6)' ]]]
+      name:
+        - font-size: 12px  # Читаемый размер текста
+        - font-weight: 500  # Улучшает видимость
+        - color: rgb(80, 80, 80)
+        - text-align: center
+        - line-height: 1.2
+        - margin: 0
+        - padding: 0
+        - white-space: normal  # Разрешаем перенос текста
+        - overflow: hidden
+        - display: -webkit-box
+        - -webkit-line-clamp: 2  # Ограничение до 2 строк
+        - -webkit-box-orient: vertical
