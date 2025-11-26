@@ -1,0 +1,55 @@
+alias: Кухня1 - свет при присутствии в зоне 1 (улучшенная)
+description: >-
+  Включение света при обнаружении присутствия в зоне 1 и выключение через 4
+  минуты после отсутствия
+triggers:
+  - entity_id: binary_sensor.esp32radarpro_zone1_presence
+    to: "on"
+    id: presence_detected
+    trigger: state
+  - entity_id: binary_sensor.esp32radarpro_zone1_presence
+    to: "off"
+    for:
+      minutes: 4
+    id: no_presence
+    trigger: state
+  - minutes: /1
+    id: safety_check
+    trigger: time_pattern
+actions:
+  - choose:
+      - conditions:
+          - condition: trigger
+            id: presence_detected
+        sequence:
+          - target:
+              entity_id: switch.min_switch_switch_1
+            action: switch.turn_on
+          - variables:
+              last_motion_time: "{{ as_timestamp(now()) }}"
+      - conditions:
+          - condition: trigger
+            id: no_presence
+        sequence:
+          - target:
+              entity_id: switch.min_switch_switch_1
+            action: switch.turn_off
+      - conditions:
+          - condition: trigger
+            id: safety_check
+          - condition: state
+            entity_id: switch.min_switch_switch_1
+            state: "on"
+          - condition: template
+            value_template: "{{ (as_timestamp(now()) - last_motion_time) > 1800 }}"
+        sequence:
+          - target:
+              entity_id: switch.min_switch_switch_1
+            action: switch.turn_off
+          - data:
+              title: Кухня - свет принудительно выключен
+              message: Свет горел более 30 минут без обнаружения движения
+            action: persistent_notification.create
+variables:
+  last_motion_time: "{{ as_timestamp(now()) }}"
+mode: restart
