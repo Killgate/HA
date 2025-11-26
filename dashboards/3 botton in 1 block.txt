@@ -1,0 +1,160 @@
+type: grid
+columns: 3
+square: false
+cards:
+  - type: custom:button-card
+    entity: switch.min_switch_switch_1
+    name: Led на кухне
+    icon: mdi:led-strip
+    show_name: true
+    tap_action:
+      action: toggle
+    styles:
+      card:
+        - height: 100%
+        - aspect-ratio: 1 / 1
+        - min-width: 100px  !important
+        - min-height: 100px  !important
+        - display: flex
+        - flex-direction: column
+        - justify-content: center
+        - align-items: center
+        - padding: 8px
+        - border-radius: 12px
+        - border: 1px solid rgb(96, 96, 96)
+        - background-color: |
+            [[[ return entity.state === 'on'
+              ? 'rgba(0, 0, 0, 0.05)'
+              : 'rgba(0, 0, 0, 0.05)' ]]]
+      icon:
+        - width: 52px
+        - height: 52px
+        - margin-bottom: 4px
+        - color: |
+            [[[ return entity.state === 'on'
+              ? 'rgba(255, 149, 0, 0.9)'
+              : 'rgba(150, 150, 150, 0.6)' ]]]
+      name:
+        - font-size: 12px
+        - font-weight: 500
+        - color: rgb(96, 96, 96)
+        - text-align: center
+        - line-height: 1.2
+        - margin: 0
+        - padding-bottom: 10px
+        - white-space: normal
+        - overflow: hidden
+        - display: "-webkit-box"
+        - "-webkit-line-clamp": 2
+        - "-webkit-box-orient": vertical
+  - type: custom:button-card
+    entity: sensor.outdoor_thermometer_outdoor_thermometer_temperature
+    name: На улице
+    icon: mdi:lightbulb
+    show_name: true
+    show_icon: false
+    show_state: true
+    state_display: |
+      [[[ 
+        const value = parseFloat(entity.state).toFixed(1);
+        return `${value} °C`;
+      ]]]
+    styles:
+      card:
+        - height: 100%
+        - aspect-ratio: 1 / 1
+        - min-width: 100px  !important
+        - min-height: 100px  !important
+        - display: flex
+        - flex-direction: column
+        - justify-content: center
+        - align-items: center
+        - padding: 8px
+        - border-radius: 12px
+        - border: 1px solid rgb(96, 96, 96)
+        - background-color: |
+            [[[ return entity.state === 'on'
+              ? 'rgba(0, 0, 0, 0.05)'
+              : 'rgba(0, 0, 0, 0.05)' ]]]
+      icon:
+        - width: 52px
+        - height: 52px
+        - margin-bottom: 4px
+        - color: |
+            [[[ return entity.state === 'on'
+              ? 'rgba(255, 149, 0, 0.9)'
+              : 'rgba(150, 150, 150, 0.6)' ]]]
+      name:
+        - font-size: 12px
+        - font-weight: 500
+        - color: rgb(96, 96, 96)
+        - text-align: center
+        - line-height: 1.2
+        - margin: 0
+        - padding-bottom: 10px
+        - white-space: normal
+        - overflow: hidden
+        - display: "-webkit-box"
+        - "-webkit-line-clamp": 2
+        - "-webkit-box-orient": vertical
+      state:
+        - font-size: 18px
+        - font-weight: 600
+        - margin-top: 9px
+        - color: |
+            [[[
+              const temp = parseFloat(entity.state);
+              if (temp > 30) return '#D32F2F';
+              if (temp > 25) return '#FF9800';
+              if (temp > 20) return '#4CAF50';
+              if (temp > 10) return '#0288D1';
+              return '#025ad1';
+            ]]]
+  - type: custom:button-card
+    entity: switch.min_switch_switch_1
+    name: Led на кухне
+    icon: mdi:led-strip
+    show_name: true
+    tap_action:
+      action: toggle
+    styles:
+      card:
+        - height: 100%
+        - aspect-ratio: 1 / 1
+        - min-width: 100px  !important
+        - min-height: 100px  !important
+        - display: flex
+        - flex-direction: column
+        - justify-content: center
+        - align-items: center
+        - padding: 8px
+        - border-radius: 12px
+        - border: 1px solid rgb(96, 96, 96)
+        - background-color: |
+            [[[ return entity.state === 'on'
+              ? 'rgba(0, 0, 0, 0.05)'
+              : 'rgba(0, 0, 0, 0.05)' ]]]
+      icon:
+        - width: 52px
+        - height: 52px
+        - margin-bottom: 4px
+        - color: |
+            [[[ return entity.state === 'on'
+              ? 'rgba(255, 149, 0, 0.9)'
+              : 'rgba(150, 150, 150, 0.6)' ]]]
+      name:
+        - font-size: 12px
+        - font-weight: 500
+        - color: rgb(96, 96, 96)
+        - text-align: center
+        - line-height: 1.2
+        - margin: 0
+        - padding-bottom: 10px
+        - white-space: normal
+        - overflow: hidden
+        - display: "-webkit-box"
+        - "-webkit-line-clamp": 2
+        - "-webkit-box-orient": vertical
+grid_options:
+  columns: 12
+  rows: auto
